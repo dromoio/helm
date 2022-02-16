@@ -56,10 +56,10 @@ django:
     requests:
       cpu: "0.2"
 
-  dbMigration: # set to true to run manage.py migrate
+  dbMigration:     # set to true to run manage.py migrate
     enabled: true
   createSuperuser: # set to true only for the first install
-    enabled: false
+    enabled: true
 
 # ALB ingress
   ingress:
