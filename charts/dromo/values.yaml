@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 aws-ecr-credentials:
+  enabled: true
   aws:
     account: "122220516134" # aws.account is the aws account number of the ECR (string)
     region: "us-west-1"     # aws.region is the aws region where the ECR exists
@@ -10,10 +11,25 @@ aws-ecr-credentials:
     secretAccessKey: ""     # aws.secretAccessKey `echo -n ${ECR_AWS_SECRET_ACCESS_KEY}|base64` is the credential of a read-only user for the ECR
   cron: "* */10 * * *"      # cron is the job period in cron format
 
+postgresql:
+  enabled: true
+  auth:
+    username: dromo
+    password: 
+    database: dromo
+  service:
+    ports:
+      postgresql: 5432
+
 redis:
   enabled: true
-#  image:
-#    tag: "5.0.0"
+  image:
+    tag: "5.0"
+#  resources:
+#    limits:
+#      memory: "1.5Gi"
+#    requests:
+#      memory: "1.5Gi"
 
 django:
   service:
@@ -33,6 +49,17 @@ django:
     pullPolicy: "Always"
   imagePullSecrets:
     - name: aws-registry-122220516134
+
+  resources:
+    limits:
+      cpu: "0.5"
+    requests:
+      cpu: "0.2"
+
+  dbMigration: # set to true to run manage.py migrate
+    enabled: true
+  createSuperuser: # set to true only for the first install
+    enabled: false
 
 # ALB ingress
   ingress:
@@ -58,6 +85,8 @@ django:
     enabled: false
     annotations:
       kubernetes.io/ingress.class: nginx
+      ingress.kubernetes.io/rewrite-target: /
+      ingress.kubernetes.io/force-ssl-redirect: "true"  
     hosts:
       - host: django.a.b.c
         paths:
@@ -70,8 +99,8 @@ celeryworker:
   replicaCount: 1
   autoscaling:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   args: /start-celeryworker
   image:
@@ -80,6 +109,14 @@ celeryworker:
     pullPolicy: "Always"
   imagePullSecrets:
     - name: aws-registry-122220516134
+
+  resources:
+    limits:
+      cpu: "0.5"
+    requests:
+      cpu: "0.2"
+
+# ALB ingress
   ingress:
     enabled: false
 
@@ -100,6 +137,14 @@ celerybeat:
     pullPolicy: "Always"
   imagePullSecrets: 
     - name: aws-registry-122220516134
+
+  resources:
+    limits:
+      cpu: "0.5"
+    requests:
+      cpu: "0.2"
+
+# ALB ingress
   ingress:
     enabled: false
 
@@ -128,7 +173,7 @@ global:
   # deploy_type
   deploy_type_on_prem: True
 
-  # postgres config
+  # external postgres config 
   postgres:
     host: dummyhost
     user: dummyuser

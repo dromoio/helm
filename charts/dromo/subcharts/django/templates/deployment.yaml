@@ -29,6 +29,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       # The init containers
       initContainers:
+        {{- if .Values.dbMigration.enabled }}
         - name: "{{ .Chart.Name }}-db-migration"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -40,6 +41,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: env
+        {{- end }}
+        {{- if .Values.createSuperuser.enabled }}
         - name: "{{ .Chart.Name }}-create-superuser"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -48,6 +51,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: env
+         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           args:
@@ -63,14 +67,14 @@ spec:
             - name: http
               containerPort: {{ .Values.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

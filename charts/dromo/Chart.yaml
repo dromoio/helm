@@ -17,9 +17,14 @@ appVersion: "0.1.0"
 dependencies:
   - name: aws-ecr-credentials
     repository: file://./subcharts/aws-ecr-credentials
+    condition: aws-ecr-credentials.enabled
   - name: redis
     repository: file://./subcharts/redis
     condition: redis.enabled
+  - name: postgresql
+    version: 11.0.4
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
   - name: django
     repository: file://./subcharts/django
     condition: django.enabled

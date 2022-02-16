@@ -35,15 +35,22 @@ spec:
             - name: tcp-redis
               containerPort: 6379
               protocol: TCP
-              targetPort: redis
           livenessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: tcp-redis
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 5
+            failureThreshold: 5
+            successThreshold: 1
           readinessProbe:
-            httpGet:
-              path: /
-              port: tcp-redis
+            exec:
+              command:
+              - redis-cli
+              - ping
+            initialDelaySeconds: 20
+            timeoutSeconds: 5
+            periodSeconds: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
