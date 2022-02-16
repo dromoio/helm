@@ -35,7 +35,7 @@ spec:
             - "/bin/sh"
             - "-c"
             - |
-              set -e #stop script because of error
+              set -e
 
               #fetching docker password
               DOCKER_REGISTRY_SERVER=https://{{ .Values.aws.account }}.dkr.ecr.{{ .Values.aws.region }}.amazonaws.com
@@ -47,11 +47,9 @@ spec:
               chmod +x kubectl
 
               #delete old secret
-              #./kubectl delete secret --namespace {{ .Values.targetNamespace }} aws-registry-{{ .Values.aws.account }} || true
               ./kubectl delete secret --namespace {{ include "aws-ecr-credentials.namespace" . }} aws-registry-{{ .Values.aws.account }} || true
 
               #create new secret (.dockerconfigjson)
-              #./kubectl create secret --namespace {{ .Values.targetNamespace }} docker-registry aws-registry-{{ .Values.aws.account }} \
               ./kubectl create secret --namespace {{ include "aws-ecr-credentials.namespace" . }} docker-registry aws-registry-{{ .Values.aws.account }} \
               --docker-server=$DOCKER_REGISTRY_SERVER \
               --docker-username=$DOCKER_USER \
