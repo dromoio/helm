@@ -1,0 +1,6 @@
+apiVersion: v2
+name: aws-ecr-credentials
+description: This Chart integrates Kubernetes with AWS ECR
+version: 0.1.0
+type: application
+appVersion: "1.16.0"

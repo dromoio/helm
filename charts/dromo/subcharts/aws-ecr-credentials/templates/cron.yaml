@@ -1,0 +1,67 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "aws-ecr-credentials.cronJob" . }}
+  namespace: {{ include "aws-ecr-credentials.namespace" . }}
+  labels:
+{{ include "aws-ecr-credentials.labels" . | indent 4 }}
+spec:
+  schedule: "{{ .Values.cron }}"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2  
+  jobTemplate:
+    spec:
+      backoffLimit: 4
+      template:
+        metadata:
+          labels:
+{{ include "aws-ecr-credentials.podLabels" . | indent 12 }}
+        spec:
+          serviceAccountName: {{ include "aws-ecr-credentials.serviceAccount" . }}
+          terminationGracePeriodSeconds: 0
+          restartPolicy: Never
+          containers:
+          - name: kubectl
+            imagePullPolicy: IfNotPresent
+            image: {{ .Values.jobImage }}:{{ .Values.jobImageTag }}
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "aws-ecr-credentials.secret" . }}
+                    key: AWS_ACCESS_KEY_ID
+
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "aws-ecr-credentials.secret" . }}
+                    key: AWS_SECRET_ACCESS_KEY
+
+            command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              set -e #stop script because of error
+
+              #fetching docker password
+              DOCKER_REGISTRY_SERVER=https://{{ .Values.aws.account }}.dkr.ecr.{{ .Values.aws.region }}.amazonaws.com
+              DOCKER_USER=AWS
+              DOCKER_PASSWORD=`aws ecr get-login-password --region {{ .Values.aws.region }}`
+
+              #download latest kubectl binary app
+              curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+              chmod +x kubectl
+
+              #delete old secret
+              #./kubectl delete secret --namespace {{ .Values.targetNamespace }} aws-registry-{{ .Values.aws.account }} || true
+              ./kubectl delete secret --namespace {{ include "aws-ecr-credentials.namespace" . }} aws-registry-{{ .Values.aws.account }} || true
+
+              #create new secret (.dockerconfigjson)
+              #./kubectl create secret --namespace {{ .Values.targetNamespace }} docker-registry aws-registry-{{ .Values.aws.account }} \
+              ./kubectl create secret --namespace {{ include "aws-ecr-credentials.namespace" . }} docker-registry aws-registry-{{ .Values.aws.account }} \
+              --docker-server=$DOCKER_REGISTRY_SERVER \
+              --docker-username=$DOCKER_USER \
+              --docker-password=$DOCKER_PASSWORD \
+              --docker-email=no@email.local
+              ./kubectl patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry-{{ .Values.aws.account }}"}]}'
+

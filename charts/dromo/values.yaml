@@ -1,0 +1,160 @@
+# Default values for dromo chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+aws-ecr-credentials:
+  aws:
+    account: "122220516134" # aws.account is the aws account number of the ECR (string)
+    region: "us-west-1"     # aws.region is the aws region where the ECR exists
+    accessKeyId: ""         # aws.accessKeyId `echo -n ${ECR_AWS_ACCESS_KEY_ID}|base64` is the credential of a read-only user for the ECR
+    secretAccessKey: ""     # aws.secretAccessKey `echo -n ${ECR_AWS_SECRET_ACCESS_KEY}|base64` is the credential of a read-only user for the ECR
+  cron: "* */10 * * *"      # cron is the job period in cron format
+
+redis:
+  enabled: true
+#  image:
+#    tag: "5.0.0"
+
+django:
+  service:
+    type: NodePort
+    port: 5000
+  port: 5000
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+  args: /start
+  image:
+    repository: 122220516134.dkr.ecr.us-west-1.amazonaws.com/backend_django
+    tag: "latest"
+    pullPolicy: "Always"
+  imagePullSecrets:
+    - name: aws-registry-122220516134
+
+# ALB ingress
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: alb
+      #alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: instance
+      alb.ingress.kubernetes.io/group.name: dev
+      alb.ingress.kubernetes.io/group.order: '102'
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:REGION:ACCOUNT_ID:certificate/xxxxxx
+      alb.ingress.kubernetes.io/inbound-cidrs: 0.0.0.0/0
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    hosts:
+      - host: django.a.b.c
+        paths:
+          - /
+
+# NGINX ingress
+  nginxIngress:
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: django.a.b.c
+        paths:
+          - /
+
+celeryworker:
+  service:
+    port: 5000
+  port: 5000
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+  args: /start-celeryworker
+  image:
+    repository: 122220516134.dkr.ecr.us-west-1.amazonaws.com/backend_django
+    tag: "latest"
+    pullPolicy: "Always"
+  imagePullSecrets:
+    - name: aws-registry-122220516134
+  ingress:
+    enabled: false
+
+celerybeat:
+  service:
+    port: 5000
+  port: 5000
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+  args: /start-celerybeat
+  image:
+    repository: 122220516134.dkr.ecr.us-west-1.amazonaws.com/backend_django
+    tag: "latest"
+    pullPolicy: "Always"
+  imagePullSecrets: 
+    - name: aws-registry-122220516134
+  ingress:
+    enabled: false
+
+global:
+  # first time set-ups
+  #create_super_user: false
+  #do_migration: false
+
+  use_docker: "yes"
+  ipythondir: /app/.ipython
+
+  # security group ids
+  dromo_sgp_id: "dromo_sgp_dummy_id"
+  redis_sgp_id: "redis_sgp_dummy_id"
+
+  # target group arn
+  target_group_arn: "target_group_dummy_arn"
+
+  # dromo api keys
+  sendgrid_api_key: "sendgrid_api_dummy_key"
+  sentry_dsn: "sendgrid_dummy_dsn"
+  sentry_environment: "test"
+  sendgrid_generate_message_id: True
+  sendgrid_merge_field_format: None
+
+  # deploy_type
+  deploy_type_on_prem: True
+
+  # postgres config
+  postgres:
+    host: dummyhost
+    user: dummyuser
+    password: dummypassword
+    db: dromo
+    port: 5432
+
+  # django config
+  django:
+    aws_access_key_id: xx
+    aws_s3_region_name: us-east-1
+    aws_secret_access_key: xxxx
+    aws_storage_bucket_name: s3xxx
+    superuser_password: admin123
+    secret_key: "secret_dummy_key"
+    default_org: "Test"
+    admin_url: "admin/"
+    allowed_hosts: "*"
+
+  # stripe config
+  stripe:
+    secret_key:
+    webhook_secret:
+
+  # celery config
+  celery:
+    flower_user: flowereta
+    flower_password: dummy_password
+
