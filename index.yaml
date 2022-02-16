@@ -1,0 +1,32 @@
+apiVersion: v1
+entries:
+  dromo:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-02-16T02:33:39.905124111Z"
+    dependencies:
+    - name: aws-ecr-credentials
+      repository: file://./subcharts/aws-ecr-credentials
+    - condition: redis.enabled
+      name: redis
+      repository: file://./subcharts/redis
+    - condition: django.enabled
+      name: django
+      repository: file://./subcharts/django
+    - condition: celeryworker.enabled
+      name: celeryworker
+      repository: file://./subcharts/celeryworker
+    - condition: celerybeat.enabled
+      name: celerybeat
+      repository: file://./subcharts/celerybeat
+    description: A Helm chart for Dromo
+    digest: 955e6dd4c10334293ea6298c854972ad9d04ab1943633fef2eb3897c5ed5f4b4
+    maintainers:
+    - email: dromo@dromo.io
+      name: Dromo
+    name: dromo
+    type: application
+    urls:
+    - https://github.com/dromoio/helm/releases/download/dromo-0.1.0/dromo-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-02-16T02:33:39.905131111Z"
