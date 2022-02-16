@@ -80,16 +80,6 @@ django:
         paths:
           - /
 
-# NGINX ingress
-  nginxIngress:
-    enabled: false
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    hosts:
-      - host: django.a.b.c
-        paths:
-          - /
-
 celeryworker:
   service:
     port: 5000
