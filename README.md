@@ -15,7 +15,15 @@ To prepare values.yaml:
 
     helm show values dromo/dromo > values.yaml
 
-To install the dromo chart:
+To install the dromo chart for the very first time:
+    
+    helm upgrade --install my-dromo dromo/dromo --create-namespace -n dromo --set django.dbMigration.enabled=true --set django.createSuperuser.enabled=true -f values.yaml
+
+To upgrade the dromo chart with database migration:
+    
+    helm upgrade --install my-dromo dromo/dromo --create-namespace -n dromo --set django.dbMigration.enabled=true -f values.yaml
+
+To upgrade the dromo chart without database migration:
     
     helm upgrade --install my-dromo dromo/dromo --create-namespace -n dromo -f values.yaml
 
