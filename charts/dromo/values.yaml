@@ -38,7 +38,7 @@ django:
   port: 5000
   replicaCount: 1
   autoscaling:
-    enabled: true
+    enabled: false # set to true to use hpa, requires metrics server installed
     minReplicas: 1
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
@@ -86,7 +86,7 @@ celeryworker:
   port: 5000
   replicaCount: 1
   autoscaling:
-    enabled: true
+    enabled: false # set to true to use hpa, requires metrics server installed
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
@@ -114,7 +114,7 @@ celerybeat:
   port: 5000
   replicaCount: 1
   autoscaling:
-    enabled: true
+    enabled: false # set to true to use hpa, requires metrics server installed
     minReplicas: 1
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
