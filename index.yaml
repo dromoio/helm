@@ -3,6 +3,44 @@ entries:
   dromo:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2022-02-17T20:39:55.609577904Z"
+    dependencies:
+    - condition: aws-ecr-credentials.enabled
+      name: aws-ecr-credentials
+      repository: file://./subcharts/aws-ecr-credentials
+      version: 0.1.0
+    - condition: redis.enabled
+      name: redis
+      repository: file://./subcharts/redis
+      version: 0.1.0
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.0.4
+    - condition: django.enabled
+      name: django
+      repository: file://./subcharts/django
+      version: 0.1.0
+    - condition: celeryworker.enabled
+      name: celeryworker
+      repository: file://./subcharts/celeryworker
+      version: 0.1.0
+    - condition: celerybeat.enabled
+      name: celerybeat
+      repository: file://./subcharts/celerybeat
+      version: 0.1.0
+    description: A Helm chart for Dromo
+    digest: 600b6b3aa0789a530798f81e7caa52dcb12d986ea7b803aea2593dd57520cb03
+    maintainers:
+    - email: dromo@dromo.io
+      name: Dromo
+    name: dromo
+    type: application
+    urls:
+    - https://github.com/dromoio/helm/releases/download/dromo-0.1.1/dromo-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2022-02-17T20:32:30.83773765Z"
     dependencies:
     - condition: aws-ecr-credentials.enabled
@@ -39,4 +77,4 @@ entries:
     urls:
     - https://github.com/dromoio/helm/releases/download/dromo-0.1.0/dromo-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-17T20:32:30.83774295Z"
+generated: "2022-02-17T20:39:55.609593303Z"
