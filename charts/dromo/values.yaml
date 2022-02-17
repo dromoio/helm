@@ -12,7 +12,7 @@ aws-ecr-credentials:
   cron: "* */10 * * *"      # cron is the job period in cron format
 
 postgresql:
-  enabled: true
+  enabled: true # deploy postgresql into k8s cluster, if false, it get postgresql info from global.postgres.
   auth:
     username: dromo
     password: 
