@@ -1,1 +1,4 @@
 theme: jekyll-theme-architect
+title: [dromo]
+description: [A Helm chart for Kubernetes]
+show_downloads: true
