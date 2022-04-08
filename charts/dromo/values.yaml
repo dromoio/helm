@@ -24,7 +24,8 @@ postgresql:
 redis:
   enabled: true
   image:
-    tag: "5.0"
+    tag: "6.2"
+    repository: 122220516134.dkr.ecr.us-west-1.amazonaws.com/redis_tls
 #  resources:
 #    limits:
 #      memory: "1.5Gi"
