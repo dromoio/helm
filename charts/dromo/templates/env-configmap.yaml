@@ -33,7 +33,7 @@ data:
     POSTGRES_PORT: "{{ .Values.global.postgres.port }}"
     POSTGRES_USER: {{ .Values.global.postgres.user }}
     {{- end }}
-    REDIS_URL: "{{ .Values.global.redis.url }} | default "redis://redis:6379/0?ssl_cert_reqs=CERT_REQUIRED&ssl_keyfile=%2Fvar%2Ftls%2Fredis%2Fredis.key&ssl_certfile=%2Fvar%2Ftls%2Fredis%2Fredis.crt&ssl_ca_certs=%2Fvar%2Ftls%2Fredis%2Fca.crt" 
+    REDIS_URL: "{{ .Values.global.redis.url }}" 
     SENDGRID_API_KEY: {{ .Values.global.sendgrid_api_key }}
     SENDGRID_GENERATE_MESSAGE_ID: "{{ .Values.global.sendgrid_generate_message_id }}"
     SENDGRID_MERGE_FIELD_FORMAT: {{ .Values.global.sendgrid_merge_field_format }}
