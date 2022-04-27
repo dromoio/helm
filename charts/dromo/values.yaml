@@ -26,7 +26,9 @@ redis:
   image:
     tag: "6.2"
     repository: 122220516134.dkr.ecr.us-west-1.amazonaws.com/redis_tls
-  url: "redis://redis:6379/0?ssl_cert_reqs=CERT_REQUIRED&ssl_keyfile=%2Fvar%2Ftls%2Fredis%2Fredis.key&ssl_certfile=%2Fvar%2Ftls%2Fredis%2Fredis.crt&ssl_ca_certs=%2Fvar%2Ftls%2Fredis%2Fca.crt"
+  url: "rediss://redis:6379/0?ssl_cert_reqs=CERT_REQUIRED&ssl_keyfile=%2Fvar%2Ftls%2Fredis%2Fredis.key&ssl_certfile=%2Fvar%2Ftls%2Fredis%2Fredis.crt&ssl_ca_certs=%2Fvar%2Ftls%2Fredis%2Fca.crt"
+  imagePullSecrets:
+  - name: aws-registry-122220516134
 #  resources:
 #    limits:
 #      memory: "1.5Gi"

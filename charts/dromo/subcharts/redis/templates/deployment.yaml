@@ -47,6 +47,13 @@ spec:
             exec:
               command:
               - redis-cli
+              - --tls
+              - --cert
+              - /usr/local/etc/redis/tls/redis.crt
+              - --key
+              - /usr/local/etc/redis/tls/redis.key
+              - --cacert
+              - /usr/local/etc/redis/tls/ca.crt
               - ping
             initialDelaySeconds: 20
             timeoutSeconds: 5
