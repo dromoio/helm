@@ -10,7 +10,7 @@ data:
    {{- else }}
     DATABASE_URL: "postgres://{{ .Values.global.postgres.user }}:{{ .Values.global.postgres.password }}@{{ .Values.global.postgres.host }}:{{ .Values.global.postgres.port }}/{{ .Values.global.postgres.db }}"
    {{- end }}
-    DEPLOYMENT_TYPE_ON_PREM: "{{ .Values.global.deploy_type_on_prem }}"
+    DJANGO_DEPLOYMENT_TYPE_ON_PREM: "{{ .Values.global.deploy_type_on_prem }}"
     DJANGO_ADMIN_URL: {{ .Values.global.django.admin_url }}
     DJANGO_ALLOWED_HOSTS: "{{ .Values.global.django.allowed_hosts }}"
     DJANGO_AWS_ACCESS_KEY_ID: {{ .Values.global.django.aws_access_key_id }}
