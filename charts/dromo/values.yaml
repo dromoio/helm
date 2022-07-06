@@ -29,11 +29,11 @@ redis:
   url: "rediss://redis:6379/0?ssl_cert_reqs=required&ssl_keyfile=%2Fvar%2Ftls%2Fredis%2Fredis.key&ssl_certfile=%2Fvar%2Ftls%2Fredis%2Fredis.crt&ssl_ca_certs=%2Fvar%2Ftls%2Fredis%2Fca.crt"
   imagePullSecrets:
   - name: aws-registry-122220516134
- resources:
-   limits:
-     memory: "1Gi"
-   requests:
-     memory: "512Mi"
+  resources:
+    limits:
+      memory: "1Gi"
+    requests:
+      memory: "512Mi"
 
 django:
   service:
