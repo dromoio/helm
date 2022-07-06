@@ -39,7 +39,7 @@ data:
     SENTRY_ENVIRONMENT: {{ .Values.global.sentry_environment }}
     STRIPE_SECRET_KEY: "{{ .Values.global.stripe.secret_key }}"
     STRIPE_WEBHOOK_SECRET: "{{ .Values.global.stripe.webhook_secret }}"
-    USE_DOCKER: "{{ .Values.global.use_docker }}"
+    USE_DOCKER: "yes"
     DJANGO_SUPERUSER_PASSWORD: {{ .Values.global.django.superuser_password }}
     DJANGO_DEFAULT_ORG: {{ .Values.global.django.default_org }}
     CELERY_BROKER_URL: {{ .Values.redis.url }}

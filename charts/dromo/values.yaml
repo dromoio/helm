@@ -147,7 +147,6 @@ global:
   #create_super_user: false
   #do_migration: false
 
-  use_docker: "yes"
   ipythondir: /app/.ipython
 
   # dromo api keys
