@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: env
 data:
-    CELERY_FLOWER_PASSWORD: {{ .Values.global.celery.flower_password }}
-    CELERY_FLOWER_USER: {{ .Values.global.celery.flower_user }}
    {{- if .Values.postgresql.enabled }}
     DATABASE_URL: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
    {{- else }}

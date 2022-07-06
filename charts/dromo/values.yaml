@@ -184,9 +184,3 @@ global:
   stripe:
     secret_key:
     webhook_secret:
-
-  # celery config
-  celery:
-    flower_user: flowereta
-    flower_password: dummy_password
-
