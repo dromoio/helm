@@ -82,7 +82,7 @@ django:
     hosts:
       - host: django.a.b.c
         paths:
-          - /
+          - /*
 
 celeryworker:
   service:
