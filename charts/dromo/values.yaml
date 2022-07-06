@@ -29,11 +29,11 @@ redis:
   url: "rediss://redis:6379/0?ssl_cert_reqs=required&ssl_keyfile=%2Fvar%2Ftls%2Fredis%2Fredis.key&ssl_certfile=%2Fvar%2Ftls%2Fredis%2Fredis.crt&ssl_ca_certs=%2Fvar%2Ftls%2Fredis%2Fca.crt"
   imagePullSecrets:
   - name: aws-registry-122220516134
-#  resources:
-#    limits:
-#      memory: "1.5Gi"
-#    requests:
-#      memory: "1.5Gi"
+ resources:
+   limits:
+     memory: "1Gi"
+   requests:
+     memory: "512Mi"
 
 django:
   service:
@@ -56,9 +56,9 @@ django:
 
   resources:
     limits:
-      cpu: "0.5"
+      cpu: "500m"
     requests:
-      cpu: "0.2"
+      cpu: "200m"
 
   dbMigration:     # set to true to run manage.py migrate
     enabled: false
@@ -104,9 +104,11 @@ celeryworker:
 
   resources:
     limits:
-      cpu: "0.5"
+      cpu: "1000m"
+      memory: "2Gi"
     requests:
-      cpu: "0.2"
+      cpu: "500m"
+      memory: "1Gi"
 
 # ALB ingress
   ingress:
