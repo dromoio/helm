@@ -147,8 +147,6 @@ global:
   #create_super_user: false
   #do_migration: false
 
-  ipythondir: /app/.ipython
-
   # dromo api keys
   sendgrid_api_key: "sendgrid_api_dummy_key"
   sentry_dsn: "sendgrid_dummy_dsn"
