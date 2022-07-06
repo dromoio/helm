@@ -38,8 +38,8 @@ redis:
 django:
   service:
     type: NodePort
-    port: 5000
-  port: 5000
+    port: 8000
+  port: 8000
   replicaCount: 1
   autoscaling:
     enabled: false # set to true to use hpa, requires metrics server installed
@@ -86,8 +86,8 @@ django:
 
 celeryworker:
   service:
-    port: 5000
-  port: 5000
+    port: 8000
+  port: 8000
   replicaCount: 1
   autoscaling:
     enabled: false # set to true to use hpa, requires metrics server installed
@@ -114,8 +114,8 @@ celeryworker:
 
 celerybeat:
   service:
-    port: 5000
-  port: 5000
+    port: 8000
+  port: 8000
   replicaCount: 1
   autoscaling:
     enabled: false # set to true to use hpa, requires metrics server installed
