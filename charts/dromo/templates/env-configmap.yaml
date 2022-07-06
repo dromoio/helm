@@ -9,7 +9,7 @@ data:
     DATABASE_URL: "postgres://{{ .Values.global.postgres.user }}:{{ .Values.global.postgres.password }}@{{ .Values.global.postgres.host }}:{{ .Values.global.postgres.port }}/{{ .Values.global.postgres.db }}"
    {{- end }}
     DJANGO_DEPLOYMENT_TYPE_ON_PREM: "{{ .Values.global.deploy_type_on_prem }}"
-    DJANGO_ADMIN_URL: {{ .Values.global.django.admin_url }}
+    DJANGO_ADMIN_URL: "admin/"
     DJANGO_ALLOWED_HOSTS: "{{ .Values.global.django.allowed_hosts }}"
     DJANGO_AWS_ACCESS_KEY_ID: {{ .Values.global.django.aws_access_key_id }}
     DJANGO_AWS_S3_REGION_NAME: {{ .Values.global.django.aws_s3_region_name }}
@@ -40,6 +40,6 @@ data:
     STRIPE_SECRET_KEY: "{{ .Values.global.stripe.secret_key }}"
     STRIPE_WEBHOOK_SECRET: "{{ .Values.global.stripe.webhook_secret }}"
     USE_DOCKER: "yes"
-    DJANGO_SUPERUSER_PASSWORD: {{ .Values.global.django.superuser_password }}
-    DJANGO_DEFAULT_ORG: {{ .Values.global.django.default_org }}
+    DJANGO_SUPERUSER_PASSWORD: "3frhbT-Upp2HWjryqhYN_mfA"
+    DJANGO_DEFAULT_ORG: "Test"
     CELERY_BROKER_URL: {{ .Values.redis.url }}
