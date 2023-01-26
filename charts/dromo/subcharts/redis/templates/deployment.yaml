@@ -36,8 +36,17 @@ spec:
               containerPort: 6379
               protocol: TCP
           livenessProbe:
-            tcpSocket:
-              port: tcp-redis
+            exec:
+              command:
+              - redis-cli
+              - --tls
+              - --cert
+              - /usr/local/etc/redis/tls/redis.crt
+              - --key
+              - /usr/local/etc/redis/tls/redis.key
+              - --cacert
+              - /usr/local/etc/redis/tls/ca.crt
+              - ping
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 5
