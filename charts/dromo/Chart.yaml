@@ -24,7 +24,7 @@ dependencies:
     repository: file://./subcharts/redis
     condition: redis.enabled
   - name: postgresql
-    version: 11.0.4
+    version: 12.2.5
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: django
