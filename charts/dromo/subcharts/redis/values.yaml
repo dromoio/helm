@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: 122220516134.dkr.ecr.us-west-1.amazonaws.com/redis_tls
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "6.2"
 
