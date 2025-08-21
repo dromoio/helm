@@ -20,7 +20,7 @@ dependencies:
     repository: file://./subcharts/aws-ecr-credentials
     condition: aws-ecr-credentials.enabled
   - name: redis
-    version: 0.1.0
+    version: 0.1.1
     repository: file://./subcharts/redis
     condition: redis.enabled
   - name: postgresql
