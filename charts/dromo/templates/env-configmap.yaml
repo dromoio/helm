@@ -43,3 +43,9 @@ data:
     DJANGO_SUPERUSER_PASSWORD: "3frhbT-Upp2HWjryqhYN_mfA"
     DJANGO_DEFAULT_ORG: "Test"
     CELERY_BROKER_URL: {{ .Values.redis.url }}
+   {{- if hasKey .Values.global.django "cors_allowed_origins" }}
+    DJANGO_CORS_OVERRIDE_ALLOWED_ORIGINS: "{{ .Values.global.django.cors_allowed_origins }}"
+   {{- end }}
+   {{- if hasKey .Values.global.django "cors_allowed_origin_regexes" }}
+    DJANGO_CORS_OVERRIDE_ORIGIN_REGEXES: "{{ .Values.global.django.cors_allowed_origin_regexes }}"
+   {{- end }}
