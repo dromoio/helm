@@ -173,6 +173,13 @@ global:
     aws_storage_bucket_name: s3xxx
     secret_key: "secret_dummy_key"
     allowed_hosts: "*"
+    # CORS settings. By default, *.dromo.io, *.dromo.dev, and *.dromocloud.com are allowed.
+    # To override, uncomment the relevant keys below and set your values.
+    # cors_allowed_origin_regexes: comma-separated regex patterns for allowed origins.
+    #   Set to "" to block all regex-based origins (only exact origins via cors_allowed_origins will be allowed).
+    #   e.g. cors_allowed_origin_regexes: "^https://[.a-zA-Z0-9-]+\\.mycompany\\.com$"
+    # cors_allowed_origins: comma-separated exact origin URLs.
+    #   e.g. cors_allowed_origins: "https://app.mycompany.com,https://other.mycompany.com"
 
   # stripe config
   stripe:
