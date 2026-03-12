@@ -49,3 +49,6 @@ data:
    {{- if hasKey .Values.global.django "cors_allowed_origin_regexes" }}
     DJANGO_CORS_OVERRIDE_ORIGIN_REGEXES: "{{ .Values.global.django.cors_allowed_origin_regexes }}"
    {{- end }}
+   {{- if hasKey .Values.global.django "csrf_trusted_origins" }}
+    DJANGO_CSRF_TRUSTED_ORIGINS: "{{ .Values.global.django.csrf_trusted_origins }}"
+   {{- end }}

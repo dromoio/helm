@@ -181,6 +181,9 @@ global:
     # cors_allowed_origins: comma-separated exact origin URLs.
     #   e.g. cors_allowed_origins: "https://app.mycompany.com,https://other.mycompany.com"
 
+    # CSRF settings. By default if left commented, app.dromo.io is trusted. 
+    # To override, uncomment the relevant keys below and set your values.
+    # csrf_trusted_origins: ""
   # stripe config
   stripe:
     secret_key:
