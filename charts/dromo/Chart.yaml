@@ -6,7 +6,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.2.0
+version: 0.2.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -16,11 +16,11 @@ appVersion: "0.1.0"
 
 dependencies:
   - name: aws-ecr-credentials
-    version: 0.2.0
+    version: 0.2.1
     repository: file://./subcharts/aws-ecr-credentials
     condition: aws-ecr-credentials.enabled
   - name: redis
-    version: 0.1.1
+    version: 0.1.2
     repository: file://./subcharts/redis
     condition: redis.enabled
   - name: postgresql

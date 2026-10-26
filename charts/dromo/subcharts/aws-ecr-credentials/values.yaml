@@ -14,4 +14,4 @@ aws:
 cron: ""
 
 jobImage: amazon/aws-cli
-jobImageTag: latest
+jobImageTag: "2.38.5"
