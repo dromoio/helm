@@ -1,0 +1,21 @@
+dependencies:
+- name: aws-ecr-credentials
+  repository: file://./subcharts/aws-ecr-credentials
+  version: 0.2.1
+- name: redis
+  repository: file://./subcharts/redis
+  version: 0.1.2
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.2.5
+- name: django
+  repository: file://./subcharts/django
+  version: 0.1.0
+- name: celeryworker
+  repository: file://./subcharts/celeryworker
+  version: 0.1.0
+- name: celerybeat
+  repository: file://./subcharts/celerybeat
+  version: 0.1.0
+digest: sha256:e2dc69cfb65bf5de5ab86d284bedb3b3d1c98a4d99729e48cad2370e459af4b3
+generated: "2026-10-25T23:58:06.46126-04:00"

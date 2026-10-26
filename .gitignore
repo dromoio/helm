@@ -1,4 +1,5 @@
 *.lock
+!charts/dromo/Chart.lock
 *.tgz
 .vscode
 values.yaml
